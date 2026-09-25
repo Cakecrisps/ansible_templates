@@ -1,0 +1,30 @@
+---
+- name: Create user {{ ssh_admin_user }}
+  ansible.builtin.user:
+    name: "{{ ssh_admin_user }}"
+    shell: /bin/bash
+    create_home: true
+    groups: sudo
+    append: true
+    state: present
+
+- name: Create .ssh directory
+  ansible.builtin.file:
+    path: "/home/{{ ssh_admin_user }}/.ssh"
+    state: directory
+    owner: "{{ ssh_admin_user }}"
+    group: "{{ ssh_admin_user }}"
+    mode: "0700"
+
+- name: Install SSH public key
+  ansible.builtin.authorized_key:
+    user: "{{ ssh_admin_user }}"
+    key: "{{ ssh_public_key }}"
+    state: present
+
+- name: Set home directory ownership
+  ansible.builtin.file:
+    path: "/home/{{ ssh_admin_user }}"
+    owner: "{{ ssh_admin_user }}"
+    group: "{{ ssh_admin_user }}"
+    recurse: false

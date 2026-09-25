@@ -1,0 +1,25 @@
+# Managed by Ansible
+
+Port {{ ssh_port }}
+ListenAddress 0.0.0.0
+
+PermitRootLogin no
+
+PubkeyAuthentication yes
+PasswordAuthentication no
+KbdInteractiveAuthentication no
+ChallengeResponseAuthentication no
+PermitEmptyPasswords no
+
+X11Forwarding no
+AllowTcpForwarding no
+PermitTunnel no
+
+LoginGraceTime 30
+ClientAliveInterval 300
+ClientAliveCountMax 2
+MaxAuthTries 3
+
+AllowUsers {{ ssh_allowed_users | join(' ') }}
+
+UsePAM yes

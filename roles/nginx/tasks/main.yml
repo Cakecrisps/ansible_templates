@@ -1,0 +1,30 @@
+---
+- name: Install nginx
+  ansible.builtin.apt:
+    name: nginx
+    state: present
+    update_cache: true
+
+- name: Check
+  ansible.builtin.service:
+    name: nginx
+    state: started
+    enabled: true
+
+- name: EditIndex
+  ansible.builtin.template:
+    src: index.html.j2
+    dest: /var/www/html/index.html
+    owner: root
+    group: root
+    mode: "644"
+  notify: Restart Nginx
+
+- name: EditDefaultConf
+  ansible.builtin.template:
+    src: default.j2
+    dest: /etc/nginx/sites-available/default
+    owner: root
+    group: root
+    mode: "644"
+  notify: Restart Nginx

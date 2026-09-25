@@ -1,0 +1,15 @@
+---
+- name: Restart SSH
+  ansible.builtin.service:
+    name: ssh
+    state: restarted
+
+- name: Restart auditd
+  ansible.builtin.service:
+    name: auditd
+    state: restarted
+
+- name: Reload audit rules
+  ansible.builtin.command:
+    cmd: augenrules --load
+  changed_when: true

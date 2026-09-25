@@ -1,0 +1,3 @@
+---
+nginx_port: 80
+main_page_word: "ANSIBLE MANAGE THIS"

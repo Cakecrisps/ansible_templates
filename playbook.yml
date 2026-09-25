@@ -1,0 +1,14 @@
+---
+- name: Apply server hardening
+  hosts: servers
+  become: true
+
+  roles:
+    - hardening
+
+- name: NginxConf
+  hosts: webservers
+  become: true
+
+  roles:
+    - nginx
